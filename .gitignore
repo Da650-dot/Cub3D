@@ -1,0 +1,14 @@
+# Compiled objects
+*.o
+*.a
+
+# Build output
+obj/
+mlx/obj/
+
+# Binary
+cub3D
+
+# OS files
+.DS_Store
+Thumbs.db
