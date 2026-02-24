@@ -12,3 +12,6 @@ cub3D
 # OS files
 .DS_Store
 Thumbs.db
+
+# READMEs dos outros projetos
+_readmes/
