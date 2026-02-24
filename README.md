@@ -138,11 +138,4 @@ C 50,50,150
 - [Repositório miniLibX (42Paris)](https://github.com/42Paris/minilibx-linux)
 - [Documentação miniLibX](https://harm-smits.github.io/42docs/libs/minilibx)
 
-### Uso de IA
-A IA (GitHub Copilot / Claude) foi utilizada neste projeto para:
-- **Geração da estrutura inicial** do projeto (Makefile, headers, esqueleto dos arquivos `.c`)
-- **Implementação base do algoritmo DDA** de raycasting seguindo o tutorial de Lode Vandevenne
-- **Debug de lógica** de colisão e parsing do mapa
-- **Geração das texturas XPM** de placeholder
 
-Todos os conceitos foram compreendidos e validados pelos autores antes de qualquer uso no código final.
