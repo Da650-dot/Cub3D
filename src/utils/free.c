@@ -36,6 +36,11 @@ void	free_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->gun_tex.img);
 		game->gun_tex.img = NULL;
 	}
+	if (game->zbuffer)
+	{
+		free(game->zbuffer);
+		game->zbuffer = NULL;
+	}
 	if (game->map.grid)
 	{
 		free_strarr(game->map.grid);

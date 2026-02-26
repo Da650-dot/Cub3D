@@ -146,14 +146,14 @@ static void	draw_one_bullet(t_game *game, t_bullet *b)
 			+ game->player.plane_x * sp_y);
 	if (ty <= 0.1)
 		return ;
-	screen_x = (int)((WIN_W / 2) * (1.0 + tx / ty));
-	h = abs((int)(WIN_H / ty / 8));
+	screen_x = (int)((game->screen_w / 2) * (1.0 + tx / ty));
+	h = abs((int)(game->screen_h / ty / 8));
 	if (h < 4)
 		h = 4;
 	if (h > 30)
 		h = 30;
-	ds_y = WIN_H / 2 - h / 2;
-	de_y = WIN_H / 2 + h / 2;
+	ds_y = game->screen_h / 2 - h / 2;
+	de_y = game->screen_h / 2 + h / 2;
 	color = b->is_enemy ? 0xFF4400 : 0xFFFF00;
 	sy = ds_y;
 	while (sy <= de_y)
@@ -161,7 +161,7 @@ static void	draw_one_bullet(t_game *game, t_bullet *b)
 		sx = screen_x - h / 2;
 		while (sx <= screen_x + h / 2)
 		{
-			if (sx >= 0 && sx < WIN_W && sy >= 0 && sy < WIN_H
+			if (sx >= 0 && sx < game->screen_w && sy >= 0 && sy < game->screen_h
 				&& ty < game->zbuffer[sx])
 				img_put_pixel(&game->screen, sx, sy, color);
 			sx++;

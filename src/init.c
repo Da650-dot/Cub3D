@@ -172,12 +172,18 @@ int	init_game(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
-	game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, WIN_TITLE);
+	mlx_get_screen_size(game->mlx, &game->screen_w, &game->screen_h);
+	game->zbuffer = (double *)malloc(sizeof(double) * game->screen_w);
+	if (!game->zbuffer)
+		return (0);
+	game->win = mlx_new_window(game->mlx, game->screen_w, game->screen_h, WIN_TITLE);
 	if (!game->win)
 		return (0);
-	game->screen.img = mlx_new_image(game->mlx, WIN_W, WIN_H);
+	game->screen.img = mlx_new_image(game->mlx, game->screen_w, game->screen_h);
 	if (!game->screen.img)
 		return (0);
+	game->screen.width = game->screen_w;
+	game->screen.height = game->screen_h;
 	game->screen.addr = mlx_get_data_addr(game->screen.img,
 			&game->screen.bits_per_pixel,
 			&game->screen.line_len,

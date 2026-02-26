@@ -29,10 +29,10 @@ void	draw_weapon(t_game *game)
 	tex = &game->gun_tex;
 	if (!tex->img)
 		return ;
-	draw_w = WIN_W / 3;
-	draw_h = WIN_H / 2;
-	start_x = (WIN_W - draw_w) / 2;
-	start_y = WIN_H - draw_h;
+	draw_w = game->screen_w / 3;
+	draw_h = game->screen_h / 2;
+	start_x = (game->screen_w - draw_w) / 2;
+	start_y = game->screen_h - draw_h;
 	if (game->weapon.state == WEAPON_SHOOT)
 		start_y += (game->weapon.anim_timer * 5);
 	sy = 0;
@@ -82,9 +82,9 @@ static void	hit_enemy(t_game *game)
 			i++;
 			continue ;
 		}
-		sx = (int)((WIN_W / 2) * (1.0 + tx / ty));
-		if (sx >= WIN_W / 2 - 30 && sx <= WIN_W / 2 + 30
-			&& ty < game->zbuffer[WIN_W / 2])
+		sx = (int)((game->screen_w / 2) * (1.0 + tx / ty));
+		if (sx >= game->screen_w / 2 - 30 && sx <= game->screen_w / 2 + 30
+			&& ty < game->zbuffer[game->screen_w / 2])
 		{
 			game->sprites[i].hp -= 50;
 			if (game->sprites[i].hp <= 0)
@@ -134,8 +134,8 @@ void	draw_hud(t_game *game)
 
 	bar_w = 300;
 	bar_h = 20;
-	bar_x = (WIN_W - bar_w) / 2;
-	bar_y = WIN_H - 36;
+	bar_x = (game->screen_w - bar_w) / 2;
+	bar_y = game->screen_h - 36;
 	fill_w = bar_w * game->player_hp / 100;
 	if (fill_w < 0)
 		fill_w = 0;

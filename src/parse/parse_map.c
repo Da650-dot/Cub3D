@@ -116,12 +116,7 @@ static int	is_surrounded(t_game *game)
 				if (!game->map.grid[y - 1][x]
 					|| !game->map.grid[y + 1][x])
 					return (0);
-				if (game->map.grid[y][x - 1] == ' '
-					|| game->map.grid[y][x + 1] == ' ')
-					return (0);
-				if (game->map.grid[y - 1][x] == ' '
-					|| game->map.grid[y + 1][x] == ' ')
-					return (0);
+	
 			}
 			x++;
 		}
@@ -135,7 +130,23 @@ int	parse_map(t_game *game, char **lines, int start)
 	int		rows;
 	int		cols;
 	int		i;
+	int		r;
+	int		w;
 
+	i = start;
+	while (lines[i])
+	{
+		r = 0;
+		w = 0;
+		while (lines[i][r])
+		{
+			if (lines[i][r] != ' ')
+				lines[i][w++] = lines[i][r];
+			r++;
+		}
+		lines[i][w] = '\0';
+		i++;
+	}
 	rows = count_map_rows(lines, start);
 	cols = max_line_len(lines, start, rows);
 	game->map.rows = rows;
@@ -167,5 +178,3 @@ int	parse_map(t_game *game, char **lines, int start)
 		return (0);
 	return (1);
 }
-
-

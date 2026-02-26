@@ -10,10 +10,10 @@ static void	mm_draw_rect(t_game *game, int mx, int my, int color)
 	sx = MM_OFFSET_X + mx * MM_SCALE;
 	sy = MM_OFFSET_Y + my * MM_SCALE;
 	py = sy;
-	while (py < sy + MM_SCALE && py < WIN_H)
+	while (py < sy + MM_SCALE && py < game->screen_h)
 	{
 		px = sx;
-		while (px < sx + MM_SCALE && px < WIN_W)
+		while (px < sx + MM_SCALE && px < game->screen_w)
 		{
 			img_put_pixel(&game->screen, px, py, color);
 			px++;

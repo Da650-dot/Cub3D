@@ -4,7 +4,7 @@ void	img_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x >= WIN_W || y < 0 || y >= WIN_H)
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
 		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
@@ -32,20 +32,20 @@ void	draw_floor_ceiling(t_game *game)
 	int	y;
 
 	y = 0;
-	while (y < WIN_H / 2)
+	while (y < game->screen_h / 2)
 	{
 		x = 0;
-		while (x < WIN_W)
+		while (x < game->screen_w)
 		{
 			img_put_pixel(&game->screen, x, y, game->map.ceil_color);
 			x++;
 		}
 		y++;
 	}
-	while (y < WIN_H)
+	while (y < game->screen_h)
 	{
 		x = 0;
-		while (x < WIN_W)
+		while (x < game->screen_w)
 		{
 			img_put_pixel(&game->screen, x, y, game->map.floor_color);
 			x++;
@@ -65,7 +65,7 @@ void	draw_column(t_game *game, t_ray *ray, int x)
 
 	tex = &game->tex[ray->tex_num].img;
 	step = 1.0 * tex->height / ray->line_height;
-	tex_pos = (ray->draw_start - WIN_H / 2 + ray->line_height / 2) * step;
+	tex_pos = (ray->draw_start - game->screen_h / 2 + ray->line_height / 2) * step;
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{

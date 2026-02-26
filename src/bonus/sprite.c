@@ -65,34 +65,34 @@ static void	render_sprite(t_game *game, t_sprite *sp)
 	transform_y = inv_det * (-p->plane_y * sprite_x + p->plane_x * sprite_y);
 	if (transform_y <= 0)
 		return ;
-	sprite_screen_x = (int)((WIN_W / 2) * (1 + transform_x / transform_y));
-	sprite_height = abs((int)(WIN_H / transform_y));
-	draw_start_y = -sprite_height / 2 + WIN_H / 2;
+	sprite_screen_x = (int)((game->screen_w / 2) * (1 + transform_x / transform_y));
+	sprite_height = abs((int)(game->screen_h / transform_y));
+	draw_start_y = -sprite_height / 2 + game->screen_h / 2;
 	if (draw_start_y < 0)
 		draw_start_y = 0;
-	draw_end_y = sprite_height / 2 + WIN_H / 2;
-	if (draw_end_y >= WIN_H)
-		draw_end_y = WIN_H - 1;
-	sprite_width = abs((int)(WIN_H / transform_y));
+	draw_end_y = sprite_height / 2 + game->screen_h / 2;
+	if (draw_end_y >= game->screen_h)
+		draw_end_y = game->screen_h - 1;
+	sprite_width = abs((int)(game->screen_h / transform_y));
 	draw_start_x = -sprite_width / 2 + sprite_screen_x;
 	if (draw_start_x < 0)
 		draw_start_x = 0;
 	draw_end_x = sprite_width / 2 + sprite_screen_x;
-	if (draw_end_x >= WIN_W)
-		draw_end_x = WIN_W - 1;
+	if (draw_end_x >= game->screen_w)
+		draw_end_x = game->screen_w - 1;
 	tex = &game->tex[TEX_SPRITE].img;
 	stripe = draw_start_x;
 	while (stripe <= draw_end_x)
 	{
 		int	tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x))
 				* tex->width / sprite_width) / 256;
-		if (transform_y > 0 && stripe >= 0 && stripe < WIN_W
+		if (transform_y > 0 && stripe >= 0 && stripe < game->screen_w
 			&& transform_y < game->zbuffer[stripe])
 		{
 			y = draw_start_y;
 			while (y <= draw_end_y)
 			{
-				int d = y * 256 - WIN_H * 128 + sprite_height * 128;
+				int d = y * 256 - game->screen_h * 128 + sprite_height * 128;
 				int tex_y = ((d * tex->height) / sprite_height) / 256;
 				int color = get_tex_pixel(tex, tex_x, tex_y);
 				if (dying)

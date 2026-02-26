@@ -11,10 +11,10 @@ int	mouse_move(int x, int y, t_game *game)
 	delta_x = x - game->mouse_x;
 	game->mouse_x = x;
 	
-	if (x < WIN_W / 4 || x > WIN_W * 3 / 4)
+	if (x < game->screen_w / 4 || x > game->screen_w * 3 / 4)
 	{
-		mlx_mouse_move(game->mlx, game->win, WIN_W / 2, WIN_H / 2);
-		game->mouse_x = WIN_W / 2;
+		mlx_mouse_move(game->mlx, game->win, game->screen_w / 2, game->screen_h / 2);
+		game->mouse_x = game->screen_w / 2;
 	}
 	if (delta_x == 0)
 		return (0);

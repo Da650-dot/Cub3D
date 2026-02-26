@@ -197,7 +197,9 @@ typedef struct s_game
 	t_texture	tex[TEX_COUNT];
 	t_player	player;
 	t_map		map;
-	double		zbuffer[WIN_W];
+	int			screen_w;
+	int			screen_h;
+	double		*zbuffer;
 	t_sprite	*sprites;
 	int			sprite_count;
 	t_door		*doors;

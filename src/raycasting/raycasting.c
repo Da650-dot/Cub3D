@@ -5,7 +5,7 @@ static void	init_ray(t_game *game, t_ray *ray, int x)
 	t_player	*p;
 
 	p = &game->player;
-	ray->camera_x = 2 * x / (double)WIN_W - 1;
+	ray->camera_x = 2 * x / (double)game->screen_w - 1;
 	ray->ray_dir_x = p->dir_x + p->plane_x * ray->camera_x;
 	ray->ray_dir_y = p->dir_y + p->plane_y * ray->camera_x;
 	ray->map_x = (int)p->pos_x;
@@ -70,7 +70,7 @@ static void	dda(t_game *game, t_ray *ray)
 			|| (int)ft_strlen(game->map.grid[ray->map_y]) <= ray->map_x)
 			break ;
 		char cell = game->map.grid[ray->map_y][ray->map_x];
-		if (cell == WALL || cell == DOOR_CLOSED)
+		if (cell == WALL || cell == DOOR_CLOSED || cell == ' ')
 			ray->hit = 1;
 	}
 }
@@ -84,13 +84,13 @@ static void	calc_wall(t_game *game, t_ray *ray)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
-	ray->line_height = (int)(WIN_H / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + WIN_H / 2;
+	ray->line_height = (int)(game->screen_h / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + game->screen_h / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_H / 2;
-	if (ray->draw_end >= WIN_H)
-		ray->draw_end = WIN_H - 1;
+	ray->draw_end = ray->line_height / 2 + game->screen_h / 2;
+	if (ray->draw_end >= game->screen_h)
+		ray->draw_end = game->screen_h - 1;
 	
 	if (ray->side == 0)
 	{
@@ -138,7 +138,7 @@ void	raycasting(t_game *game)
 
 	draw_floor_ceiling(game);
 	x = 0;
-	while (x < WIN_W)
+	while (x < game->screen_w)
 	{
 		cast_ray(game, &ray, x);
 		draw_column(game, &ray, x);
