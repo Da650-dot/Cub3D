@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 15:01:01 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 15:01:01 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -10,15 +22,12 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-
 # define WIN_W        1280
 # define WIN_H        720
 # define WIN_TITLE    "cub3D"
 
-
 # define MOVE_SPEED   0.05
 # define ROT_SPEED    0.03
-
 
 # define KEY_W        119
 # define KEY_A        97
@@ -30,16 +39,13 @@
 # define KEY_E        101
 # define KEY_SPACE    32
 
-
 # define WALL         '1'
 # define EMPTY        '0'
 # define DOOR_CLOSED  'D'
 # define DOOR_OPEN    'O'
 
-
 # define BULLET_MAX   32
 # define BULLET_SPEED 0.15
-
 
 # define NO           0
 # define SO           1
@@ -48,7 +54,6 @@
 # define TEX_DOOR     4
 # define TEX_COUNT    5
 
-
 # define MM_SCALE     5
 # define MM_OFFSET_X  10
 # define MM_OFFSET_Y  10
@@ -56,7 +61,6 @@
 # define MM_FLOOR_CLR 0x333333
 # define MM_PLAYER    0xFF4444
 # define MM_DOOR_CLR  0xFFAA00
-
 
 # define ERR_ARGS     "Usage: ./cub3D <map.cub>"
 # define ERR_EXT      "Map file must have .cub extension"
@@ -173,37 +177,37 @@ typedef struct s_game
 	t_bullet	bullets[BULLET_MAX];
 }	t_game;
 
-
 int		parse_file(t_game *game, const char *path);
 int		parse_map(t_game *game, char **lines, int start);
 int		parse_elements(t_game *game, char **lines, int *idx);
 int		parse_texture(t_map *map, char *line);
-int		parse_color(t_map *map, char *line);
-
+int		parse_color(t_map *map, char *line, int r, int g);
+int		parse_checkers(t_game *game, char **lines, int start, int rows);
 
 int		init_game(t_game *game);
 int		load_textures(t_game *game);
 void	init_player_direction(t_player *p, char dir);
 int		init_doors(t_game *game);
-
+int		count_doors(t_game *game);
+void	fill_doors(t_game *game);
+int		init_screen(t_game *game);
+int		load_one_texture(t_game *game, int i);
+void	set_init_player_direction(t_player *p, double *directions);
 
 void	raycasting(t_game *game);
 void	cast_ray(t_game *game, t_ray *ray, int x);
 void	calc_wall(t_game *game, t_ray *ray);
 int		dda_check(t_game *game, t_ray *ray);
-void	draw_column(t_game *game, t_ray *ray, int x);
+void	draw_column(t_game *game, t_ray *ray, int x, int y);
 void	draw_floor_ceiling(t_game *game);
-
 
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	move_player(t_game *game);
 
-
 int		render(t_game *game);
 void	img_put_pixel(t_img *img, int x, int y, int color);
 int		get_tex_pixel(t_img *img, int x, int y);
-
 
 void	draw_minimap(t_game *game);
 void	update_doors(t_game *game);
@@ -215,13 +219,11 @@ void	spawn_bullet(t_game *game);
 void	update_bullets(t_game *game);
 void	draw_bullets(t_game *game);
 
-
 void	free_game(t_game *game);
 void	error_exit(t_game *game, const char *msg);
 char	**read_file_lines(const char *path);
 void	free_strarr(char **arr);
 int		strarr_len(char **arr);
-
 
 int		close_window(t_game *game);
 

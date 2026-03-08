@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 16:25:26 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 16:25:26 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	rotate_view(t_game *game, double angle)
@@ -51,4 +63,3 @@ void	player_shoot(t_game *game)
 {
 	spawn_bullet(game);
 }
-

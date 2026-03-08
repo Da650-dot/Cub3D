@@ -3,41 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 00:00:00 by student           #+#    #+#             */
-/*   Updated: 2026/02/20 00:00:00 by student          ###   ########.fr       */
+/*   Created: 2024/10/19 09:58:09 by gabriel           #+#    #+#             */
+/*   Updated: 2024/10/20 11:15:55 by gabriede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	in_set(char c, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	start;
-	size_t	end;
+	int	start;
+	int	size;
+	int	counter;
 
-	if (!s1 || !set)
-		return (NULL);
+	counter = 0;
 	start = 0;
-	end = ft_strlen(s1);
-	while (s1[start] && in_set(s1[start], set))
+	if (ft_strlen(s1) == 0 || ft_strlen(set) == 0)
+		return (ft_substr(s1, 0, ft_strlen(s1)));
+	while (s1[start] != 0 && ft_strchr(set, s1[start]))
 		start++;
-	while (end > start && in_set(s1[end - 1], set))
-		end--;
-	return (ft_substr(s1, (unsigned int)start, end - start));
+	size = ft_strlen(s1);
+	while (s1[counter] && ft_strchr(set, s1[size]))
+	{
+		size--;
+		counter++;
+	}
+	return (ft_substr(&s1[start], 0, ft_strlen(&s1[start]) - counter + 1));
 }

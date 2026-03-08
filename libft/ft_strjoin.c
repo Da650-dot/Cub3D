@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 00:00:00 by student           #+#    #+#             */
-/*   Updated: 2026/02/20 00:00:00 by student          ###   ########.fr       */
+/*   Created: 2024/10/18 19:08:35 by gabriede          #+#    #+#             */
+/*   Updated: 2024/10/20 11:38:38 by gabriede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,14 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*result;
-	size_t	len1;
-	size_t	len2;
-	size_t	i;
+	size_t	total;
+	char	*strconcat;
 
-	if (!s1 || !s2)
+	total = ft_strlen(s1) + ft_strlen(s2) + 1;
+	strconcat = (char *)ft_calloc(total, sizeof(char));
+	if (strconcat == NULL)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	result = (char *)malloc(len1 + len2 + 1);
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < len1)
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (i < len2)
-	{
-		result[len1 + i] = s2[i];
-		i++;
-	}
-	result[len1 + len2] = '\0';
-	return (result);
+	ft_strlcpy(strconcat, s1, ft_strlen(s1) + 1);
+	ft_strlcat(strconcat, s2, total);
+	return (strconcat);
 }

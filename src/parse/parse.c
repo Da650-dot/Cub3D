@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 16:25:56 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 16:25:56 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static int	is_map_line(char *line)
@@ -30,7 +42,7 @@ static int	handle_element(t_game *game, char *trimmed, int i, int *idx)
 		return (parse_texture(&game->map, trimmed));
 	else if (ft_strncmp(trimmed, "F ", 2) == 0
 		|| ft_strncmp(trimmed, "C ", 2) == 0)
-		return (parse_color(&game->map, trimmed));
+		return (parse_color(&game->map, trimmed, 0, 0));
 	else if (is_map_line(trimmed) && trimmed[0] != '\0')
 	{
 		*idx = i;

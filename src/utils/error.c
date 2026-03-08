@@ -1,17 +1,16 @@
-#include "../../includes/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 18:37:13 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 18:37:13 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	error_exit(t_game *game, const char *msg)
-{
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
-	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
-	}
-	if (game)
-		free_game(game);
-	exit(1);
-}
+#include "../../includes/cub3d.h"
 
 static int	count_lines(const char *path)
 {
