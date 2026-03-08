@@ -37,7 +37,10 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/bonus/door.c \
 		$(SRC_DIR)/bonus/mouse.c \
 		$(SRC_DIR)/bonus/bullet.c \
-		$(SRC_DIR)/bonus/bullet_move.c
+		$(SRC_DIR)/bonus/bullet_move.c \
+		$(SRC_DIR)/helpers/init_helpers.c \
+		$(SRC_DIR)/helpers/parse_helpers.c \
+		$(SRC_DIR)/helpers/error_helpers.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -53,7 +56,7 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 all: dirs $(LIBFT) mlx_build $(NAME)
 
 dirs:
-	@mkdir -p obj/parse obj/raycasting obj/player obj/utils obj/bonus
+	@mkdir -p obj/parse obj/raycasting obj/player obj/utils obj/bonus obj/helpers
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft $(MLX_FLAGS) -o $(NAME)

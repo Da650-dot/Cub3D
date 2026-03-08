@@ -1,4 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 16:11:17 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 16:11:17 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
+
+static void	error_helper(void)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(ERR_ARGS, 2);
+	ft_putstr_fd(". ", 2);
+	ft_putstr_fd(ERR_EXT, 2);
+	ft_putstr_fd("\n", 2);
+}
 
 static int	check_extension(const char *path)
 {
@@ -26,18 +47,9 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc != 2)
+	if (argc != 2 || !check_extension(argv[1]))
 	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd(ERR_ARGS, 2);
-		ft_putstr_fd("\n", 2);
-		return (1);
-	}
-	if (!check_extension(argv[1]))
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd(ERR_EXT, 2);
-		ft_putstr_fd("\n", 2);
+		error_helper();
 		return (1);
 	}
 	ft_memset(&game, 0, sizeof(t_game));

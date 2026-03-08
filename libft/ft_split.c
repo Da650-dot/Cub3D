@@ -3,80 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 00:00:00 by student           #+#    #+#             */
-/*   Updated: 2026/02/20 00:00:00 by student          ###   ########.fr       */
+/*   Created: 2024/10/20 11:43:11 by gabriede          #+#    #+#             */
+/*   Updated: 2024/10/25 15:04:59 by gabriede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_words(char const *s, char c)
+static int	count_words(const char *s, const char c)
 {
-	size_t	count;
-	int		in_word;
+	int	count;
+	int	index;
 
 	count = 0;
-	in_word = 0;
-	while (*s)
+	index = 0;
+	if (ft_strlen(s) == 0)
+		return (0);
+	while (s[index] != '\0')
 	{
-		if (*s != c && !in_word)
+		if (s[index] != (unsigned char) c)
 		{
-			in_word = 1;
+			while (s[index] != (unsigned char)c && s[index] != '\0')
+				index++;
 			count++;
 		}
-		else if (*s == c)
-			in_word = 0;
-		s++;
+		if (s[index] != '\0')
+			index++;
 	}
 	return (count);
 }
 
-static char	*get_word(char const *s, char c, size_t *pos)
+void	fill_arr(int size, const char *s, const char c, char ***str_list)
 {
-	size_t	start;
-	size_t	len;
+	int	counter;
+	int	i;
+	int	j;
 
-	while (s[*pos] == c)
-		(*pos)++;
-	start = *pos;
-	len = 0;
-	while (s[*pos] && s[*pos] != c)
+	i = 0;
+	counter = 0;
+	while (s[i] != '\0' && counter < size)
 	{
-		len++;
-		(*pos)++;
+		j = 0;
+		while (s[i] == c)
+			i++;
+		while (s[i + j] && s[i + j] != c)
+			j++;
+		(*str_list)[counter] = ft_substr(&s[i], 0, j);
+		counter++;
+		i += j;
 	}
-	return (ft_substr(s, (unsigned int)start, len));
+	(*str_list)[size] = 0;
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**result;
-	size_t	words;
-	size_t	pos;
-	size_t	i;
+	int		size;
+	char	**str_list;
 
-	if (!s)
-		return (NULL);
-	words = count_words(s, c);
-	result = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!result)
-		return (NULL);
-	pos = 0;
-	i = 0;
-	while (i < words)
-	{
-		result[i] = get_word(s, c, &pos);
-		if (!result[i])
-		{
-			while (i > 0)
-				free(result[--i]);
-			free(result);
-			return (NULL);
-		}
-		i++;
-	}
-	result[words] = NULL;
-	return (result);
+	size = count_words(s, c);
+	if (size == 0)
+		return (ft_calloc(1, sizeof(char *)));
+	str_list = (char **) ft_calloc((size + 1), sizeof(char *));
+	if (str_list == 0)
+		return (0);
+	fill_arr(size, s, c, &str_list);
+	return (str_list);
 }

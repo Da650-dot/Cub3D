@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 18:25:02 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 18:25:02 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	init_ray(t_game *game, t_ray *ray, int x)
@@ -92,7 +104,7 @@ void	raycasting(t_game *game)
 	while (x < game->screen_w)
 	{
 		cast_ray(game, &ray, x);
-		draw_column(game, &ray, x);
+		draw_column(game, &ray, x, 0);
 		game->zbuffer[x] = ray.perp_wall_dist;
 		x++;
 	}

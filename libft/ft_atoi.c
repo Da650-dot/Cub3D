@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 00:00:00 by student           #+#    #+#             */
-/*   Updated: 2026/02/20 00:00:00 by student          ###   ########.fr       */
+/*   Created: 2024/10/18 16:25:19 by gabriede          #+#    #+#             */
+/*   Updated: 2024/10/25 15:10:23 by gabriede         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 int	ft_atoi(const char *nptr)
 {
+	int	index;
 	int	sign;
-	int	result;
+	int	number;
 
 	sign = 1;
-	result = 0;
-	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	index = 0;
+	number = 0;
+	while ((nptr[index] >= 9 && nptr[index] <= 13) || nptr[index] == 32)
+		index++;
+	if (nptr[index] == '-' || nptr[index] == '+')
 	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
+		if (nptr[index] == '+')
+			index++;
+		else
+		{
+			sign = sign * -1;
+			index++;
+		}
 	}
-	while (*nptr >= '0' && *nptr <= '9')
+	while (nptr[index] >= '0' && nptr[index] <= '9')
 	{
-		result = result * 10 + (*nptr - '0');
-		nptr++;
+		number = (number * 10) + (nptr[index] - 48);
+		index++;
 	}
-	return (sign * result);
+	return (number * sign);
 }

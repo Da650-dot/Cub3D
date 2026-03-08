@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabriede <gabriede@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/08 18:20:45 by gabriede          #+#    #+#             */
+/*   Updated: 2026/03/08 18:20:45 by gabriede         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static int	set_texture(t_map *map, int idx, char *path)
@@ -58,11 +70,9 @@ static int	parse_rgb(char *str, int *r, int *g, int *b)
 	return (1);
 }
 
-int	parse_color(t_map *map, char *line)
+int	parse_color(t_map *map, char *line, int r, int g)
 {
 	char	*rgb_str;
-	int		r;
-	int		g;
 	int		b;
 
 	rgb_str = ft_strtrim(line + 2, " \t\n");
