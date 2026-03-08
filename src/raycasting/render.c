@@ -83,16 +83,11 @@ void	draw_column(t_game *game, t_ray *ray, int x)
 int	render(t_game *game)
 {
 	update_doors(game);
-	update_enemies(game);
 	update_bullets(game);
 	move_player(game);
 	raycasting(game);
-	draw_sprites(game);
 	draw_bullets(game);
 	draw_minimap(game);
-	update_weapon(game);
-	draw_weapon(game);
-	draw_hud(game);
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->screen.img, 0, 0);
 	return (0);

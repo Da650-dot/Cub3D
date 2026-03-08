@@ -1,45 +1,5 @@
 #include "../../includes/cub3d.h"
 
-int	key_press(int keycode, t_game *game)
-{
-	if (keycode == KEY_ESC)
-		close_window(game);
-	if (keycode == KEY_W)
-		game->player.move_forward = 1;
-	if (keycode == KEY_S)
-		game->player.move_back = 1;
-	if (keycode == KEY_A)
-		game->player.move_left = 1;
-	if (keycode == KEY_D)
-		game->player.move_right = 1;
-	if (keycode == KEY_LEFT)
-		game->player.rot_left = 1;
-	if (keycode == KEY_RIGHT)
-		game->player.rot_right = 1;
-	if (keycode == KEY_E)
-		player_shoot(game);
-	if (keycode == KEY_SPACE)
-		interact_door(game);
-	return (0);
-}
-
-int	key_release(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->player.move_forward = 0;
-	if (keycode == KEY_S)
-		game->player.move_back = 0;
-	if (keycode == KEY_A)
-		game->player.move_left = 0;
-	if (keycode == KEY_D)
-		game->player.move_right = 0;
-	if (keycode == KEY_LEFT)
-		game->player.rot_left = 0;
-	if (keycode == KEY_RIGHT)
-		game->player.rot_right = 0;
-	return (0);
-}
-
 static void	rotate_player(t_player *p, double angle)
 {
 	double	old_dir_x;
@@ -71,27 +31,8 @@ static int	can_move(t_game *game, double new_x, double new_y)
 	return (1);
 }
 
-void	move_player(t_game *game)
+static void	apply_strafe(t_game *game, t_player *p, double spd)
 {
-	t_player	*p;
-	double		spd;
-
-	p = &game->player;
-	spd = MOVE_SPEED;
-	if (p->move_forward)
-	{
-		if (can_move(game, p->pos_x + p->dir_x * spd, p->pos_y))
-			p->pos_x += p->dir_x * spd;
-		if (can_move(game, p->pos_x, p->pos_y + p->dir_y * spd))
-			p->pos_y += p->dir_y * spd;
-	}
-	if (p->move_back)
-	{
-		if (can_move(game, p->pos_x - p->dir_x * spd, p->pos_y))
-			p->pos_x -= p->dir_x * spd;
-		if (can_move(game, p->pos_x, p->pos_y - p->dir_y * spd))
-			p->pos_y -= p->dir_y * spd;
-	}
 	if (p->move_left)
 	{
 		if (can_move(game, p->pos_x - p->plane_x * spd, p->pos_y))
@@ -106,6 +47,33 @@ void	move_player(t_game *game)
 		if (can_move(game, p->pos_x, p->pos_y + p->plane_y * spd))
 			p->pos_y += p->plane_y * spd;
 	}
+}
+
+static void	apply_translation(t_game *game, t_player *p, double spd)
+{
+	if (p->move_forward)
+	{
+		if (can_move(game, p->pos_x + p->dir_x * spd, p->pos_y))
+			p->pos_x += p->dir_x * spd;
+		if (can_move(game, p->pos_x, p->pos_y + p->dir_y * spd))
+			p->pos_y += p->dir_y * spd;
+	}
+	if (p->move_back)
+	{
+		if (can_move(game, p->pos_x - p->dir_x * spd, p->pos_y))
+			p->pos_x -= p->dir_x * spd;
+		if (can_move(game, p->pos_x, p->pos_y - p->dir_y * spd))
+			p->pos_y -= p->dir_y * spd;
+	}
+	apply_strafe(game, p, spd);
+}
+
+void	move_player(t_game *game)
+{
+	t_player	*p;
+
+	p = &game->player;
+	apply_translation(game, p, MOVE_SPEED);
 	if (p->rot_left)
 		rotate_player(p, -ROT_SPEED);
 	if (p->rot_right)

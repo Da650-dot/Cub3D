@@ -27,16 +27,17 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parse/parse_map.c \
 		$(SRC_DIR)/parse/parse_textures.c \
 		$(SRC_DIR)/raycasting/raycasting.c \
+		$(SRC_DIR)/raycasting/calc_wall.c \
 		$(SRC_DIR)/raycasting/render.c \
 		$(SRC_DIR)/player/movement.c \
+		$(SRC_DIR)/player/keys.c \
 		$(SRC_DIR)/utils/error.c \
 		$(SRC_DIR)/utils/free.c \
 		$(SRC_DIR)/bonus/minimap.c \
-		$(SRC_DIR)/bonus/sprite.c \
 		$(SRC_DIR)/bonus/door.c \
 		$(SRC_DIR)/bonus/mouse.c \
-		$(SRC_DIR)/bonus/weapon.c \
-		$(SRC_DIR)/bonus/bullet.c
+		$(SRC_DIR)/bonus/bullet.c \
+		$(SRC_DIR)/bonus/bullet_move.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

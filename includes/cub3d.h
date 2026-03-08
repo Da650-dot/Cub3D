@@ -35,23 +35,10 @@
 # define EMPTY        '0'
 # define DOOR_CLOSED  'D'
 # define DOOR_OPEN    'O'
-# define SPRITE_CHAR  '2'
 
 
-# define ENEMY_IDLE   0
-# define ENEMY_CHASE  1
-# define ENEMY_DYING  2
-# define ENEMY_DEAD   3
-
-
-# define WEAPON_IDLE  0
-# define WEAPON_SHOOT 1
-
-
-# define BULLET_MAX         32
-# define BULLET_SPEED       0.15
-# define ENEMY_SHOOT_RANGE  7.0
-# define ENEMY_SHOOT_CD     70
+# define BULLET_MAX   32
+# define BULLET_SPEED 0.15
 
 
 # define NO           0
@@ -59,8 +46,7 @@
 # define WE           2
 # define EA           3
 # define TEX_DOOR     4
-# define TEX_SPRITE   5
-# define TEX_COUNT    6
+# define TEX_COUNT    5
 
 
 # define MM_SCALE     5
@@ -70,7 +56,6 @@
 # define MM_FLOOR_CLR 0x333333
 # define MM_PLAYER    0xFF4444
 # define MM_DOOR_CLR  0xFFAA00
-# define MM_SPRITE_CL 0x44FF44
 
 
 # define ERR_ARGS     "Usage: ./cub3D <map.cub>"
@@ -84,17 +69,6 @@
 # define ERR_MLX      "MLX initialization failed"
 # define ERR_MALLOC   "Memory allocation failed"
 
-typedef struct s_sprite
-{
-	double		pos_x;
-	double		pos_y;
-	double		dist;
-	int			frame_timer;
-	int			state;
-	int			hp;
-	int			shoot_timer;
-}	t_sprite;
-
 typedef struct s_bullet
 {
 	double		pos_x;
@@ -102,14 +76,7 @@ typedef struct s_bullet
 	double		dir_x;
 	double		dir_y;
 	int			active;
-	int			is_enemy;
 }	t_bullet;
-
-typedef struct s_weapon
-{
-	int			state;
-	int			anim_timer;
-}	t_weapon;
 
 typedef struct s_door
 {
@@ -200,15 +167,9 @@ typedef struct s_game
 	int			screen_w;
 	int			screen_h;
 	double		*zbuffer;
-	t_sprite	*sprites;
-	int			sprite_count;
 	t_door		*doors;
 	int			door_count;
 	int			mouse_x;
-	t_img		gun_tex;
-	t_weapon	weapon;
-	int			player_hp;
-	int			hit_timer;
 	t_bullet	bullets[BULLET_MAX];
 }	t_game;
 
@@ -223,12 +184,13 @@ int		parse_color(t_map *map, char *line);
 int		init_game(t_game *game);
 int		load_textures(t_game *game);
 void	init_player_direction(t_player *p, char dir);
-int		init_sprites(t_game *game);
 int		init_doors(t_game *game);
 
 
 void	raycasting(t_game *game);
 void	cast_ray(t_game *game, t_ray *ray, int x);
+void	calc_wall(t_game *game, t_ray *ray);
+int		dda_check(t_game *game, t_ray *ray);
 void	draw_column(t_game *game, t_ray *ray, int x);
 void	draw_floor_ceiling(t_game *game);
 
@@ -244,21 +206,14 @@ int		get_tex_pixel(t_img *img, int x, int y);
 
 
 void	draw_minimap(t_game *game);
-void	draw_sprites(t_game *game);
 void	update_doors(t_game *game);
 void	interact_door(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
-void	update_enemies(t_game *game);
-void	draw_weapon(t_game *game);
-void	update_weapon(t_game *game);
-void	draw_hud(t_game *game);
+int		mouse_click(int button, int x, int y, t_game *game);
 void	player_shoot(t_game *game);
-void	spawn_bullet(t_game *game, double px, double py,
-			double dx, double dy, int is_enemy);
+void	spawn_bullet(t_game *game);
 void	update_bullets(t_game *game);
 void	draw_bullets(t_game *game);
-int		mouse_click(int button, int x, int y, t_game *game);
-int		load_gun_texture(t_game *game);
 
 
 void	free_game(t_game *game);

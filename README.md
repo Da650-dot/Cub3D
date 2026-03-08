@@ -1,15 +1,11 @@
 # cub3D
 
-![Language](https://img.shields.io/badge/language-C-blue)
-![42](https://img.shields.io/badge/school-42-black)
-![Status](https://img.shields.io/badge/status-concluído-brightgreen)
-
-> Engine gráfica 3D em C inspirada no Wolfenstein 3D, utilizando raycasting.
+*Este projeto foi criado como parte do currículo da 42 por dde-sou2. *
 
 ## Descrição
 
-**cub3D** é um motor gráfico de primeira pessoa desenvolvido em C, inspirado no clássico **Wolfenstein 3D**.  
-Renderiza um labirinto em perspectiva 3D a partir de um arquivo de mapa `.cub`, utilizando a técnica de **raycasting com o algoritmo DDA** (Digital Differential Analysis) e a biblioteca gráfica **miniLibX**.
+**cub3D** é um raycaster 3D de primeira pessoa desenvolvido em C, inspirado no clássico **Wolfenstein 3D**.  
+O objetivo é renderizar um labirinto em perspectiva 3D a partir de um arquivo de mapa `.cub`, utilizando a técnica de **ray-casting com o algoritmo DDA** (Digital Differential Analysis) e a biblioteca gráfica **miniLibX**.
 
 ### Funcionalidades
 - Renderização 3D em tempo real com texturas diferentes para cada parede (Norte, Sul, Leste, Oeste)

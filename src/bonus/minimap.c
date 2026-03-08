@@ -22,29 +22,12 @@ static void	mm_draw_rect(t_game *game, int mx, int my, int color)
 	}
 }
 
-static void	mm_draw_player(t_game *game)
+static void	mm_player_dir(t_game *game, int cx, int cy)
 {
-	int		cx;
-	int		cy;
-	int		dx;
-	int		dy;
-	int		i;
+	int	i;
+	int	dx;
+	int	dy;
 
-	cx = MM_OFFSET_X + (int)(game->player.pos_x * MM_SCALE);
-	cy = MM_OFFSET_Y + (int)(game->player.pos_y * MM_SCALE);
-	
-	i = -2;
-	while (i <= 2)
-	{
-		int j = -2;
-		while (j <= 2)
-		{
-			img_put_pixel(&game->screen, cx + i, cy + j, MM_PLAYER);
-			j++;
-		}
-		i++;
-	}
-	
 	i = 1;
 	while (i <= MM_SCALE * 3)
 	{
@@ -55,10 +38,32 @@ static void	mm_draw_player(t_game *game)
 	}
 }
 
+static void	mm_draw_player(t_game *game)
+{
+	int	cx;
+	int	cy;
+	int	i;
+	int	j;
+
+	cx = MM_OFFSET_X + (int)(game->player.pos_x * MM_SCALE);
+	cy = MM_OFFSET_Y + (int)(game->player.pos_y * MM_SCALE);
+	i = -2;
+	while (i <= 2)
+	{
+		j = -2;
+		while (j <= 2)
+		{
+			img_put_pixel(&game->screen, cx + i, cy + j, MM_PLAYER);
+			j++;
+		}
+		i++;
+	}
+	mm_player_dir(game, cx, cy);
+}
+
 static int	mm_cell_color(t_game *game, int x, int y)
 {
 	char	c;
-	int		i;
 
 	if (y < 0 || y >= game->map.rows)
 		return (MM_WALL_CLR);
@@ -71,16 +76,6 @@ static int	mm_cell_color(t_game *game, int x, int y)
 		return (MM_DOOR_CLR);
 	if (c == DOOR_OPEN)
 		return (MM_DOOR_CLR);
-	
-	i = 0;
-	while (i < game->sprite_count)
-	{
-		if (game->sprites[i].state != ENEMY_DEAD
-			&& (int)game->sprites[i].pos_x == x
-			&& (int)game->sprites[i].pos_y == y)
-			return (MM_SPRITE_CL);
-		i++;
-	}
 	return (MM_FLOOR_CLR);
 }
 

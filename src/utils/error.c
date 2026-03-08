@@ -13,17 +13,15 @@ void	error_exit(t_game *game, const char *msg)
 	exit(1);
 }
 
-char	**read_file_lines(const char *path)
+static int	count_lines(const char *path)
 {
 	int		fd;
 	char	*line;
-	char	**result;
 	int		count;
-	int		i;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+		return (-1);
 	count = 0;
 	while (1)
 	{
@@ -34,6 +32,15 @@ char	**read_file_lines(const char *path)
 		count++;
 	}
 	close(fd);
+	return (count);
+}
+
+static char	**fill_lines(const char *path, int count)
+{
+	int		fd;
+	char	**result;
+	int		i;
+
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
@@ -51,6 +58,16 @@ char	**read_file_lines(const char *path)
 	result[i] = NULL;
 	close(fd);
 	return (result);
+}
+
+char	**read_file_lines(const char *path)
+{
+	int	count;
+
+	count = count_lines(path);
+	if (count < 0)
+		return (NULL);
+	return (fill_lines(path, count));
 }
 
 void	free_strarr(char **arr)

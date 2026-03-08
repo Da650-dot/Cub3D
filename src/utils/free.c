@@ -1,11 +1,9 @@
 #include "../../includes/cub3d.h"
 
-void	free_game(t_game *game)
+static void	free_textures(t_game *game)
 {
 	int	i;
 
-	if (!game)
-		return ;
 	i = 0;
 	while (i < TEX_COUNT)
 	{
@@ -21,31 +19,10 @@ void	free_game(t_game *game)
 		}
 		i++;
 	}
-	if (game->sprites)
-	{
-		free(game->sprites);
-		game->sprites = NULL;
-	}
-	if (game->doors)
-	{
-		free(game->doors);
-		game->doors = NULL;
-	}
-	if (game->gun_tex.img && game->mlx)
-	{
-		mlx_destroy_image(game->mlx, game->gun_tex.img);
-		game->gun_tex.img = NULL;
-	}
-	if (game->zbuffer)
-	{
-		free(game->zbuffer);
-		game->zbuffer = NULL;
-	}
-	if (game->map.grid)
-	{
-		free_strarr(game->map.grid);
-		game->map.grid = NULL;
-	}
+}
+
+static void	free_mlx(t_game *game)
+{
 	if (game->screen.img && game->mlx)
 	{
 		mlx_destroy_image(game->mlx, game->screen.img);
@@ -62,6 +39,29 @@ void	free_game(t_game *game)
 		free(game->mlx);
 		game->mlx = NULL;
 	}
+}
+
+void	free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	free_textures(game);
+	if (game->doors)
+	{
+		free(game->doors);
+		game->doors = NULL;
+	}
+	if (game->zbuffer)
+	{
+		free(game->zbuffer);
+		game->zbuffer = NULL;
+	}
+	if (game->map.grid)
+	{
+		free_strarr(game->map.grid);
+		game->map.grid = NULL;
+	}
+	free_mlx(game);
 }
 
 int	close_window(t_game *game)
