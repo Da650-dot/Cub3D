@@ -26,8 +26,8 @@
 # define WIN_H        720
 # define WIN_TITLE    "cub3D"
 
-# define MOVE_SPEED   0.05
-# define ROT_SPEED    0.03
+# define MOVE_SPEED   0.01
+# define ROT_SPEED    0.01
 
 # define KEY_W        119
 # define KEY_A        97
@@ -214,7 +214,6 @@ void	update_doors(t_game *game);
 void	interact_door(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
 int		mouse_click(int button, int x, int y, t_game *game);
-void	player_shoot(t_game *game);
 void	spawn_bullet(t_game *game);
 void	update_bullets(t_game *game);
 void	draw_bullets(t_game *game);

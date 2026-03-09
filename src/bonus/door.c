@@ -79,7 +79,7 @@ void	update_doors(t_game *game)
 	i = 0;
 	while (i < game->door_count)
 	{
-		update_door_state(game, i, 0.05);
+		update_door_state(game, i, 0.03);
 		i++;
 	}
 }

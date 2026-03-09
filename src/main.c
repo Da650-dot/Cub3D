@@ -62,6 +62,7 @@ int	main(int argc, char **argv)
 	init_doors(&game);
 	game.mouse_x = game.screen_w / 2;
 	setup_hooks(&game);
+	mlx_mouse_hide(game.mlx, game.win);
 	mlx_loop(game.mlx);
 	free_game(&game);
 	return (0);

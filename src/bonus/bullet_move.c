@@ -25,8 +25,8 @@ void	spawn_bullet(t_game *game)
 	{
 		if (!game->bullets[i].active)
 		{
-			game->bullets[i].pos_x = game->player.pos_x + dx * 0.6;
-			game->bullets[i].pos_y = game->player.pos_y + dy * 0.6;
+			game->bullets[i].pos_x = game->player.pos_x + dx * 0.05;
+			game->bullets[i].pos_y = game->player.pos_y + dy * 0.05;
 			game->bullets[i].dir_x = dx;
 			game->bullets[i].dir_y = dy;
 			game->bullets[i].active = 1;

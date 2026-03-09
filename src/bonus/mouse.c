@@ -45,7 +45,7 @@ int	mouse_move(int x, int y, t_game *game)
 	}
 	if (delta_x == 0)
 		return (0);
-	angle = delta_x * ROT_SPEED * 0.3;
+	angle = delta_x * ROT_SPEED * 0.1;
 	rotate_view(game, angle);
 	return (0);
 }
@@ -55,11 +55,6 @@ int	mouse_click(int button, int x, int y, t_game *game)
 	(void)x;
 	(void)y;
 	if (button == 1)
-		player_shoot(game);
+		spawn_bullet(game);
 	return (0);
-}
-
-void	player_shoot(t_game *game)
-{
-	spawn_bullet(game);
 }
