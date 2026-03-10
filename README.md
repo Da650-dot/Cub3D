@@ -1,6 +1,6 @@
 # cub3D
 
-*Este projeto foi criado como parte do currículo da 42 por dde-sou2. *
+*Este projeto foi criado como parte do currículo da 42 por dde-sou2, gabriede *
 
 ## Descrição
 
@@ -134,4 +134,6 @@ C 50,50,150
 - [Repositório miniLibX (42Paris)](https://github.com/42Paris/minilibx-linux)
 - [Documentação miniLibX](https://harm-smits.github.io/42docs/libs/minilibx)
 
-
+### IA
+- Utilizada para elucidar de forma didática conceitos matemáticos e desenvolvimento do raycasting.
+- Elaboração do README
