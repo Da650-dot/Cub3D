@@ -46,7 +46,7 @@ static void	render_bullet_pixels(t_game *game, int sx, int h, double ty)
 			if (px >= 0 && px < game->screen_w
 				&& py >= 0 && py < game->screen_h
 				&& ty < game->zbuffer[px])
-				img_put_pixel(&game->screen, px, py, 0xFFFF00);
+				img_put_pixel(&game->screen, px, py, 0xFF00);
 			px++;
 		}
 		py++;

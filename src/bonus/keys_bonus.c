@@ -28,6 +28,10 @@ int	key_press(int keycode, t_game *game)
 		game->player.rot_left = 1;
 	if (keycode == KEY_RIGHT)
 		game->player.rot_right = 1;
+	if (keycode == KEY_E)
+		spawn_bullet(game);
+	if (keycode == KEY_SPACE)
+		interact_door(game);
 	return (0);
 }
 
