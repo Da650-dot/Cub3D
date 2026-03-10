@@ -38,7 +38,7 @@ static int	can_move(t_game *game, double new_x, double new_y)
 	if (ix < 0 || ix >= (int)ft_strlen(game->map.grid[iy]))
 		return (0);
 	c = game->map.grid[iy][ix];
-	if (c == ' ')
+	if (c == WALL || c == DOOR_CLOSED || c == ' ')
 		return (0);
 	return (1);
 }
